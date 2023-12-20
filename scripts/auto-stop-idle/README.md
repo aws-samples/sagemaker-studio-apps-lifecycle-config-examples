@@ -5,7 +5,7 @@ The `on-start.sh` script, designed to run as a [SageMaker Studio lifecycle confi
 
 From a terminal appropriately configured with AWS CLI, run the following commands:
   
-    curl -LO https://github.com/aws-samples/amazon-sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
+    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
     tar -xvzf auto-stop-idle-0.1.0.tar.gz
 
     cd auto-stop-idle
@@ -79,7 +79,7 @@ Following are the instructions on how to modify the lifecycle configuration to s
 1. Download and extract the auto-stop-idle tarball:
   
     ```
-    curl -LO https://github.com/aws-samples/amazon-sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
+    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
     tar -xvzf auto-stop-idle-0.1.0.tar.gz
     ```
 

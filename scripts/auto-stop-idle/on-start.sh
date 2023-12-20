@@ -36,7 +36,7 @@ sudo apt install cron
 
 # Downloading autostop idle Python script.
 echo "Downloading autostop idle Python script..."
-curl -LO https://github.com/aws-samples/amazon-sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
+curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
 tar -xvzf auto-stop-idle-0.1.0.tar.gz
 sudo cp auto-stop-idle/auto_stop_idle.py $PYTHON_SCRIPT_FILE
 
