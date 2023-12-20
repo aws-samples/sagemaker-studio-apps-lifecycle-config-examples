@@ -1,17 +1,21 @@
-## My Project
+# SageMaker Studio JupyterLab Lifecycle Configuration examples
 
-TODO: Fill this README out!
+## Overview
+A collection of sample scripts customizing SageMaker Studio JupyterLab applications using lifecycle configurations.
 
-Be sure to:
+Lifecycle Configurations (LCCs) provide a mechanism to customize JupyterLab application instances via shell scripts that are executed at application bootstrap. For further information on how to use lifecycle configurations with SageMaker Studio JupyterLab applications, please refer to the [AWS documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/jl-lcc.html).
 
-* Change the title in this README
-* Edit your repository description on GitHub
+> **Warning**
+> The sample scripts in this repository are designed to work with SageMaker Studio JupyterLab applications. If you are using SageMaker Studio Classic, please refer to https://github.com/aws-samples/sagemaker-studio-lifecycle-config-examples
 
-## Security
+## Sample Scripts
+- [auto-stop-idle](scripts/auto-stop-idle/) - Automatically shuts down JupyterLab applications that have been idle for a configurable time.
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+## Developing LLCs for SageMaker Studio JupyterLab
+For best practices, please check [DEVELOPMENT](DEVELOPMENT.md).
 
 ## License
+This project is licensed under the [MIT-0 License](LICENSE).
 
-This library is licensed under the MIT-0 License. See the LICENSE file.
-
+## Authors
+[Giuseppe A. Porcelli](https://www.linkedin.com/in/giuporcelli/) - Principal, ML Specialist Solutions Architect - Amazon SageMaker
