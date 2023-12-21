@@ -60,9 +60,9 @@ In addition, the following advanced configuration is available (do not change un
 - `JL_PORT` JupyterLab port. **Default**: `8888`
 - `JL_BASE_URL` JupyterLab base URL. **Default**: `/jupyterlab/default/`
 - `PYTHON_EXECUTABLE` Path to the Python executable used to run `PYTHON_SCRIPT_FILE`. **Default**: `/opt/conda/bin/python`
-- `PYTHON_SCRIPT_FILE` Path to the Python script that checks for idle Jupyter kernels and terminals. **Default**: `/var/tmp/auto_stop_idle.py`
+- `PYTHON_SCRIPT_FILE` Path to the Python script that checks for idle Jupyter kernels and terminals. **Default**: `/var/tmp/auto-stop-idle/auto_stop_idle.py`
 - `LOG_FILE` Path to the file where logs are written; defaults to the location of the Studio app logs, that are automatically delivered to Amazon CloudWatch. **Default**: `/var/log/apps/app_container.log`
-- `STATE_FILE` Path to a file that is used to save the state for the Python script (given it's execution is stateless). The location of this file has to be transient, i.e. not persisted across restarts of the Studio JupyterLab app; as a consequence, do not use EBS-backed directories like `/home/sagemaker-user/`. **Default**: `/var/tmp/auto_stop_idle.st`
+- `STATE_FILE` Path to a file that is used to save the state for the Python script (given it's execution is stateless). The location of this file has to be transient, i.e. not persisted across restarts of the Studio JupyterLab app; as a consequence, do not use EBS-backed directories like `/home/sagemaker-user/`. **Default**: `/var/tmp/auto-stop-idle/auto_stop_idle.st`
 
 ## Architecture considerations
 - The `on-start.sh` lifecycle configuration script adds a `cron` job for `root` using `crontab`, that is configured to run every `2` minutes. The job runs the `PYTHON_SCRIPT_FILE` which checks for idleness. If the JupyterLab application is detected being idle, the Python script deletes the application by invoking the Amazon SageMaker `DeleteApp` API.
