@@ -90,9 +90,10 @@ Following are the instructions on how to modify the lifecycle configuration to s
     aws s3 cp auto_stop_idle.py s3://<your_bucket_name>/<your_prefix>/
     ```
 
-3. Edit the `on-start.sh` file and replace lines 39-41 with:
+3. Edit the `on-start.sh` file and replace lines 40-41 with:
 
     ```
+    sudo mkdir -p /var/tmp/auto-stop-idle
     sudo aws s3 cp s3://<your_bucket_name>/<your_prefix>/auto_stop_idle.py $PYTHON_SCRIPT_FILE
     ```
 
