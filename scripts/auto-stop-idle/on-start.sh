@@ -3,6 +3,7 @@
 
 #!/bin/bash
 set -eux
+VERSION=0.1.0
 
 # OVERVIEW
 # This script stops a SageMaker Studio JupyterLab app, once it's idle for more than X seconds, based on IDLE_TIME_IN_SECONDS configuration.
@@ -22,9 +23,9 @@ JL_HOSTNAME=0.0.0.0
 JL_PORT=8888
 JL_BASE_URL=/jupyterlab/default/
 PYTHON_EXECUTABLE=/opt/conda/bin/python
-PYTHON_SCRIPT_FILE=/var/tmp/auto_stop_idle.py
+PYTHON_SCRIPT_FILE=/var/tmp/auto-stop-idle/auto_stop_idle.py
 LOG_FILE=/var/log/apps/app_container.log # Writing to app_container.log delivers logs to CW logs.
-STATE_FILE=/var/tmp/auto_stop_idle.st
+STATE_FILE=/var/tmp/auto-stop-idle/auto_stop_idle.st
 
 # Fixing invoke-rc.d: policy-rc.d denied execution of restart.
 sudo /bin/bash -c "echo '#!/bin/sh
@@ -36,9 +37,8 @@ sudo apt install cron
 
 # Downloading autostop idle Python script.
 echo "Downloading autostop idle Python script..."
-curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
-tar -xvzf auto-stop-idle-0.1.0.tar.gz
-sudo cp auto-stop-idle/auto_stop_idle.py $PYTHON_SCRIPT_FILE
+curl --create-dirs -LO --output-dir /var/tmp/ https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v$VERSION/auto-stop-idle-$VERSION.tar.gz
+sudo tar -xzf /var/tmp/auto-stop-idle-$VERSION.tar.gz -C /var/tmp
 
 # Setting container credential URI variable to /etc/environment to make it available to cron
 sudo /bin/bash -c "echo 'AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI' >> /etc/environment"
