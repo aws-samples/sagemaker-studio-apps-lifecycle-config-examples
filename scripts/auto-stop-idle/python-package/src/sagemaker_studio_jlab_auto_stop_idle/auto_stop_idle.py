@@ -230,7 +230,7 @@ if __name__ == '__main__':
     port = 8888
     ignore_connections = True
     skip_terminals = False
-    state_file_path = "/var/tmp/auto_stop_idle.st"
+    state_file_path = "/var/tmp/auto-stop-idle/auto_stop_idle.st"
 
     # Read in command-line parameters
     try:

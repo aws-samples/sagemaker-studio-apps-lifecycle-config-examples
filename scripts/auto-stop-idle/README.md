@@ -5,8 +5,9 @@ The `on-start.sh` script, designed to run as a [SageMaker Studio lifecycle confi
 
 From a terminal appropriately configured with AWS CLI, run the following commands:
   
-    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
-    tar -xvzf auto-stop-idle-0.1.0.tar.gz
+    ASI_VERSION=0.2.0
+    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
+    tar -xvzf auto-stop-idle-$ASI_VERSION.tar.gz
 
     cd auto-stop-idle
 
@@ -56,45 +57,51 @@ The `on-start.sh` script can be customized by modifying the following variables:
 
 In addition, the following advanced configuration is available (do not change unless explicitly required by your setup):
 
+- `ASI_VERSION` the version of the Auto Stop Idle (ASI) solution.
 - `JL_HOSTNAME` the host name for the JupyterLab application. **Default**: `0.0.0.0`
 - `JL_PORT` JupyterLab port. **Default**: `8888`
 - `JL_BASE_URL` JupyterLab base URL. **Default**: `/jupyterlab/default/`
-- `PYTHON_EXECUTABLE` Path to the Python executable used to run `PYTHON_SCRIPT_FILE`. **Default**: `/opt/conda/bin/python`
-- `PYTHON_SCRIPT_FILE` Path to the Python script that checks for idle Jupyter kernels and terminals. **Default**: `/var/tmp/auto-stop-idle/auto_stop_idle.py`
+- `CONDA_HOME` Conda home directory. **Default**: `/opt/conda/bin`
 - `LOG_FILE` Path to the file where logs are written; defaults to the location of the Studio app logs, that are automatically delivered to Amazon CloudWatch. **Default**: `/var/log/apps/app_container.log`
+- `SOLUTION_DIR` The directory where the solution will be installed. **Default**: `/var/tmp/auto-stop-idle`
 - `STATE_FILE` Path to a file that is used to save the state for the Python script (given it's execution is stateless). The location of this file has to be transient, i.e. not persisted across restarts of the Studio JupyterLab app; as a consequence, do not use EBS-backed directories like `/home/sagemaker-user/`. **Default**: `/var/tmp/auto-stop-idle/auto_stop_idle.st`
+- `PYTHON_PACKAGE` The name (with version) of the auto stop idle Python package. **Default**: `sagemaker_studio_jlab_auto_stop_idle-$ASI_VERSION.tar.gz`
+
 
 ## Architecture considerations
-- The `on-start.sh` lifecycle configuration script adds a `cron` job for `root` using `crontab`, that is configured to run every `2` minutes. The job runs the `PYTHON_SCRIPT_FILE` which checks for idleness. If the JupyterLab application is detected being idle, the Python script deletes the application by invoking the Amazon SageMaker `DeleteApp` API.
+- The `on-start.sh` lifecycle configuration script adds a `cron` job for `root` using `crontab`, that is configured to run every `2` minutes. The job runs the Python script at `PYTHON_SCRIPT_PATH` which checks for idleness. If the JupyterLab application is detected being idle, the Python script deletes the application by invoking the Amazon SageMaker `DeleteApp` API.
 - This solution requires:
-  1. internet access to download `PYTHON_SCRIPT_FILE`. 
+  1. internet access to download `PYTHON_PACKAGE`. 
   2. access to the Amazon SageMaker `DeleteApp` API. From the authorization perspective, the execution role associated to the Studio Domain or User Profile must have an associated IAM policy allowing the `sagemaker:DeleteApp` action. 
 - Studio JupyterLab application is run as `sagemaker-user`, which has `sudo` privileges; as a consequence, users could potentially remove the cron task and stop any idleness checks. To prevent this behavior, you can modify the configuration in `/etc/sudoers` to remove sudo privileges to `sagemaker-user`.
 
 ### Installing in internet-free VPCs
-To install the auto-stop-idle solution in an internet-free VPC configurtation you can use Amazon S3 and S3 VPC endpoints to download the `auto_stop_idle.py` Python script. In addition, you will need to configure SageMaker API VPC endpoints for the DeleteApp() operation.
+To install the auto-stop-idle solution in an internet-free VPC configurtation you can use Amazon S3 and S3 VPC endpoints to download the auto stop idle Python package. In addition, you will need to configure SageMaker API VPC endpoints for the DeleteApp() operation.
 
 Following are the instructions on how to modify the lifecycle configuration to support internet-free VPC configurations:
 
-1. Download and extract the auto-stop-idle tarball:
+1. Download and extract the auto-stop-idle solution tarball:
   
     ```
-    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v0.1.0/auto-stop-idle-0.1.0.tar.gz
-    tar -xvzf auto-stop-idle-0.1.0.tar.gz
+    ASI_VERSION=0.2.0
+    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
+    tar -xvzf auto-stop-idle-$ASI_VERSION.tar.gz
     ```
 
-2. Copy the `auto_stop_idle.py` script to a location of choice in Amazon S3. The Execution Role associated to the Studio domain or user profiles must have IAM policies that allow read access to such S3 location.
+2. Download and copy the auto stop idle Python package to a location of choice in Amazon S3. The Execution Role associated to the Studio domain or user profiles must have IAM policies that allow read access to such S3 location.
 
     ```
     cd auto-stop-idle
-    aws s3 cp auto_stop_idle.py s3://<your_bucket_name>/<your_prefix>/
+
+    PYTHON_PACKAGE=sagemaker_studio_jlab_auto_stop_idle-$ASI_VERSION.tar.gz
+    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v$ASI_VERSION/$PYTHON_PACKAGE
+    aws s3 cp $PYTHON_PACKAGE s3://<your_bucket_name>/<your_prefix>/
     ```
 
-3. Edit the `on-start.sh` file and replace lines 40-41 with:
+3. Edit the `on-start.sh` file and replace line 45 with:
 
     ```
-    sudo mkdir -p /var/tmp/auto-stop-idle
-    sudo aws s3 cp s3://<your_bucket_name>/<your_prefix>/auto_stop_idle.py $PYTHON_SCRIPT_FILE
+    sudo aws s3 cp s3://<your_bucket_name>/<your_prefix>/$PYTHON_PACKAGE /var/tmp/
     ```
 
 4. Create the LCC and attach to the Studio domain:
@@ -127,5 +134,4 @@ Following are the instructions on how to modify the lifecycle configuration to s
             ]
           }
         }"
-
     ```
