@@ -9,22 +9,17 @@ The `autostop.py` Python script, coupled with the `on-start.sh` shell script, is
 - AWS CLI configured with appropriate permissions
 - Access to the SageMaker Studio domain where the user profiles are located
 
-### Steps 
+### Installation for all user profiles in a SageMaker Studio domain
 
-1. From a terminal appropriately configured with AWS CLI, run the following commands:
-
-Note: If the repo is `private`, please add the following params (and contact `aws-spenceng` for the access token)
-- `ACCESS_TOKEN=<your access token>`
-- `ASSET_ID=<your asset ID>`
+From a terminal appropriately configured with AWS CLI, run the following commands (replace fields as needed):
 
 ```
-ASI_VERSION=0.1.0
-# (private param) ACCESS_TOKEN=<your access token>
-# (private param) ASSET_ID=<your asset ID>
-curl -H "Authorization: Bearer $ACCESS_TOKEN" -H "Accept: application/octet-stream" -L "https://api.github.com/repos/aws-spenceng/sm-ce-auto-shut-down/releases/assets/$ASSET_ID" -o "sm-ce-auto-shut-down-$ASI_VERSION.tar.gz"
-tar -xvzf sm-ce-auto-shut-down-$ASI_VERSION.tar.gz
+ASI_VERSION=0.3.0
 
-cd sm-ce-auto-shut-down
+curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/code-editor-start-$ASI_VERSION.tar.gz
+tar -xvzf code-editor-start-$ASI_VERSION.tar.gz
+
+cd auto_shut_down
 
 REGION=<aws_region>
 DOMAIN_ID=<domain_id>
@@ -57,3 +52,23 @@ aws sagemaker update-domain \
 ```
 
 2. After successful domain update, navigate to Code Editor, and select the LCC when starting your Code Editor application.
+
+
+### Definition of idleness
+
+The current implementation of idleness (as of `v0.3.0`) includes the following criteria:
+
+1. There are no file changes made in the Code Editor application for a time period greater than `IDLE_TIME`. File changes include adding new files, deleting files, and/or updating files.
+
+
+### Configurations
+
+The `on-start.sh` script can be customized by modifying:
+
+* `IDLE_TIME` the time in seconds that the application is in "idle" state before being shut down. Default: `3600` seconds
+* `ASI_VERSION` the version of the Auto Shut Down solution. Please note that Code Editor starts at `v0.3.0`.
+
+
+### Acknowledgement
+
+A special acknowledgement to Lavaraja Padala for his foundational work on Lifecycle Configuration (LCC) implementation. This extension is inspired by his insights shared in the blog post ["How to Configure Lifecycle Configuration for New Studio Code Editor"](https://guide.aws.dev/articles/ARyr07cC46Rj6n-RU20dk3mQ/how-to-configure-lifecycle-configuration-for-new-studio-code-editor). We're grateful for his contribution to the community!

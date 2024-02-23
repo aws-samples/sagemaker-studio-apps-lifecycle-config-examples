@@ -6,7 +6,7 @@ The `on-start.sh` script, designed to run as a [SageMaker Studio lifecycle confi
 From a terminal appropriately configured with AWS CLI, run the following commands:
   
     ASI_VERSION=0.2.0
-    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
+    curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
     tar -xvzf auto-stop-idle-$ASI_VERSION.tar.gz
 
     cd auto-stop-idle
@@ -84,7 +84,7 @@ Following are the instructions on how to modify the lifecycle configuration to s
   
     ```
     ASI_VERSION=0.2.0
-    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
+    curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
     tar -xvzf auto-stop-idle-$ASI_VERSION.tar.gz
     ```
 
@@ -94,7 +94,7 @@ Following are the instructions on how to modify the lifecycle configuration to s
     cd auto-stop-idle
 
     PYTHON_PACKAGE=sagemaker_studio_jlab_auto_stop_idle-$ASI_VERSION.tar.gz
-    curl -LO https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v$ASI_VERSION/$PYTHON_PACKAGE
+    curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/$PYTHON_PACKAGE
     aws s3 cp $PYTHON_PACKAGE s3://<your_bucket_name>/<your_prefix>/
     ```
 

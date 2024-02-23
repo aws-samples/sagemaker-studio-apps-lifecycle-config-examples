@@ -42,7 +42,7 @@ sudo mkdir -p $SOLUTION_DIR
 
 # Downloading autostop idle Python package.
 echo "Downloading autostop idle Python package..."
-curl -LO --output-dir /var/tmp/ https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/releases/download/v$ASI_VERSION/$PYTHON_PACKAGE
+curl -LO --output-dir /var/tmp/ https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/$PYTHON_PACKAGE
 sudo $CONDA_HOME/pip install -U -t $SOLUTION_DIR /var/tmp/$PYTHON_PACKAGE
 
 # Setting container credential URI variable to /etc/environment to make it available to cron

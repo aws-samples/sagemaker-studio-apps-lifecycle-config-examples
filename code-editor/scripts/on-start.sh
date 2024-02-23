@@ -1,35 +1,25 @@
 #!/bin/bash
 set -ex
-ASI_VERSION=0.1.0
+ASI_VERSION=0.3.0
 
 # PARAMETERS 
-IDLE_TIME=120  # in seconds, change this to desired idleness time before app shuts down
+IDLE_TIME=3600  # in seconds, change this to desired idleness time before app shuts down
 
-# (private) PUBLIC FILE_URL (uncomment line below when public) this is from a public repo
-AUTOSTOP_FILE_URL="https://github.com/aws-spenceng/assets/releases/download/v$ASI_VERSION/sm-ce-auto-shut-down-$ASI_VERSION.tar.gz"
-
-# (public) PUBLIC FILE_URL (uncomment line below when public) this is from a public repo
-# AUTOSTOP_FILE_URL="https://github.com/aws-spenceng/sm-ce-auto-shut-down/releases/download/v$ASI_VERSION/sm-ce-auto-shut-down-$ASI_VERSION.zip"
-
-# (private) enter in ASSET_ID in terminal command to setup, see README
-# ASSET_ID=your_static_asset_id
-# ASSET_NAME="sm-ce-auto-shut-down-$ASI_VERSION.tar.gz"
-# AUTOSTOP_FILE_URL="https://api.github.com/repos/aws-spenceng/sm-ce-auto-shut-down/releases/assets/$ASSET_ID"
+AUTOSTOP_FILE_URL="https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz"
 
 echo "Fetching the autostop script"
 echo "Downloading the autostop script package"
 
-# (private) this is using the public asset above
-curl -L -o sm-ce-auto-shut-down-$ASI_VERSION.tar.gz $AUTOSTOP_FILE_URL
+# Download asset from corresponding repo release
+curl -L -o sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz $AUTOSTOP_FILE_URL
 
 echo "Extracting the package"
-tar -xvzf "sm-ce-auto-shut-down-$ASI_VERSION.tar.gz"
-
+tar -xvzf "sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz"
 
 # Moving the autostop.py to the current directory
 # Adjust the path according to the structure inside the tar.gz file
 echo "Moving the autostop.py to the current directory"
-mv sm-ce-auto-shut-down/python-package/src/sagemaker_code_editor_auto_shut_down/autostop.py ./
+mv sagemaker_code_editor_auto_shut_down/python-package/src/sagemaker_code_editor_auto_shut_down/autostop.py ./
 
 echo "Detecting Python install with boto3 install"
 sudo apt-get update -y
@@ -52,4 +42,4 @@ fi
 echo "Found boto3 at $PYTHON_DIR"
 
 echo "Starting the SageMaker autostop script in cron"
-echo "*/5 * * * * export AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI; $PYTHON_DIR $PWD/autostop.py --time $IDLE_TIME --region $AWS_DEFAULT_REGION > /home/sagemaker-user/autoshutdown.log" | crontab -
+echo "*/2 * * * * export AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI; $PYTHON_DIR $PWD/autostop.py --time $IDLE_TIME --region $AWS_DEFAULT_REGION > /home/sagemaker-user/autoshutdown.log" | crontab -

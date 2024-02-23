@@ -23,7 +23,7 @@ setup(
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
 
     author='Amazon Web Services',
-    url='https://github.com/aws-samples/sagemaker-studio-jupyterlab-lifecycle-config-examples/tree/main/scripts/auto-stop-idle',
+    url='https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/tree/main/jupyterlab/scripts/auto-stop-idle',
     license='MIT-0',
 
     classifiers=[

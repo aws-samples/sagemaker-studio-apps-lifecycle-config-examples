@@ -41,7 +41,7 @@ if args.region is None:
     parser.print_help()
     sys.exit(1)
 
-# Define the folders to monitor for modifications
+# Monitor workspace_dirs for changes to implement auto-shutdown, as these paths track updates to both unsaved and saved editor content, covering all user activity scenarios.
 workspace_dirs = ["/opt/amazon/sagemaker/sagemaker-code-editor-server-data/data/User/History", "/opt/amazon/sagemaker/sagemaker-code-editor-server-data/data/User/Backups/empty-window/untitled"]
 idle_threshold = args.time  # this is in seconds. for ex: 1800 seconds for 30 minutes
 aws_region = args.region # get the region.
@@ -65,11 +65,10 @@ if all(status == "idle" for status in activity_status):
     sm_client = boto3.client('sagemaker',region_name=aws_region)
     response = sm_client.delete_app(
         DomainId=domain_id,
-       # UserProfileName='default', not required as we provided the space name.
         AppType=app_type,
         AppName=app_name,
         SpaceName=space_name
     )
-    print("SageMaker Studio Code Server app terminated due to being idle for given duration")
+    print("SageMaker Studio Code Editor app terminated due to being idle for given duration")
 else:
-    print("SageMaker Studio Code Server app is active")
+    print("SageMaker Studio Code Editor app is active")
