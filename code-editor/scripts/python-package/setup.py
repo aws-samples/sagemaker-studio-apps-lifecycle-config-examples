@@ -23,7 +23,7 @@ setup(
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
 
     author='Amazon Web Services',
-    url='https://github.com/aws-spenceng/sm-ce-auto-shut-down',
+    url='https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples',
     license='MIT-0',
 
     classifiers=[

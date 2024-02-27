@@ -58,7 +58,9 @@ aws sagemaker update-domain \
 
 The current implementation of idleness (as of `v0.3.0`) includes the following criteria:
 
-1. There are no file changes made in the Code Editor application for a time period greater than `IDLE_TIME`. File changes include adding new files, deleting files, and/or updating files.
+1. There are no file changes made in the Code Editor application for a time period greater than `IDLE_TIME`. File changes include adding new files, deleting files, and/or updating files. 
+* Note: As of `v0.3.0`, the current implementation does not currently support terminal activity detection. 
+
 
 
 ### Configurations
@@ -71,4 +73,4 @@ The `on-start.sh` script can be customized by modifying:
 
 ### Acknowledgement
 
-A special acknowledgement to Lavaraja Padala for his foundational work on Lifecycle Configuration (LCC) implementation. This extension is inspired by his insights shared in the blog post ["How to Configure Lifecycle Configuration for New Studio Code Editor"](https://guide.aws.dev/articles/ARyr07cC46Rj6n-RU20dk3mQ/how-to-configure-lifecycle-configuration-for-new-studio-code-editor). We're grateful for his contribution to the community!
+A special acknowledgement to Lavaraja Padala for his foundational work on Lifecycle Configuration (LCC) implementation. We're grateful for his contribution to the community!

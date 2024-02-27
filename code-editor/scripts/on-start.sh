@@ -5,7 +5,7 @@ ASI_VERSION=0.3.0
 # PARAMETERS 
 IDLE_TIME=3600  # in seconds, change this to desired idleness time before app shuts down
 
-AUTOSTOP_FILE_URL="https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz"
+AUTOSTOP_FILE_URL="https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz"
 
 echo "Fetching the autostop script"
 echo "Downloading the autostop script package"
@@ -23,10 +23,8 @@ mv sagemaker_code_editor_auto_shut_down/python-package/src/sagemaker_code_editor
 
 echo "Detecting Python install with boto3 install"
 sudo apt-get update -y
-sudo apt-get install -y vim
 sudo sh -c 'printf "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d'
 sudo apt-get install -y cron
-sudo service cron start
 
 # Redirect stderr as it is unneeded
 CONDA_PYTHON_DIR=$(source /opt/conda/bin/activate base && which python)
