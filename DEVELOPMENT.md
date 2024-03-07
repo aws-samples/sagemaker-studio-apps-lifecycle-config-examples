@@ -1,4 +1,6 @@
-## Best practicies for developing Lifecycle Configuration scripts for SageMaker Studio JupyterLab
+## Best practicies for developing Lifecycle Configuration scripts for SageMaker Studio applications
+
+### SageMaker JupyterLab
 
 1. You can test JupyterLab scripts in the JupyterLab **Terminal**. If the scripts are running without issues in terminals, you can safely assume it will run as an LCC script as well.
 
