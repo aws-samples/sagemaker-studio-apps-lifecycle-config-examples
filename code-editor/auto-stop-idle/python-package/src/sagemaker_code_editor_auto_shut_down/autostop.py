@@ -8,7 +8,7 @@ def check_user_activity(workspace_dir, idle_threshold):
     # Get the timestamp of the most recently modified file or folder
     recent_item = max(
         (os.path.join(root, file) for root, _, files in os.walk(workspace_dir) for file in files),
-        key=lambda x: os.stat(x).st_mtime,
+        key=lambda x: os.lstat(x).st_mtime,
         default=None
     )
 
