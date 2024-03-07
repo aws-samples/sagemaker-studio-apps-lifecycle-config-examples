@@ -1,0 +1,2 @@
+from __future__ import absolute_import
+from sagemaker_code_editor_auto_shut_down.version import __version__
