@@ -16,10 +16,10 @@ From a terminal appropriately configured with AWS CLI, run the following command
 ```
 ASI_VERSION=0.3.0
 
-curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/code-editor-start-$ASI_VERSION.tar.gz
-tar -xvzf code-editor-start-$ASI_VERSION.tar.gz
+curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/code-editor-lccs-$ASI_VERSION.tar.gz
+tar -xvzf code-editor-lccs-$ASI_VERSION.tar.gz
 
-cd auto_shut_down
+cd auto-stop-idle
 
 REGION=<aws_region>
 DOMAIN_ID=<domain_id>
