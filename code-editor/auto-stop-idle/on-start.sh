@@ -4,6 +4,7 @@ set -ex
 # PARAMETERS
 ASI_VERSION=0.3.0
 IDLE_TIME=3600  # in seconds, change this to desired idleness time before app shuts down
+AUTOSTOP_FILE_URL="https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz"
 LOG_FILE=/var/log/apps/app_container.log # Writing to app_container.log delivers logs to CW logs.
 
 {
@@ -11,7 +12,7 @@ echo "Fetching the autostop script"
 echo "Downloading the autostop script package"
 
 # Download asset from corresponding repo release
-curl -L -o sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz $AUTOSTOP_FILE_URL
+curl -LO sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz $AUTOSTOP_FILE_URL
 
 echo "Extracting the package"
 tar -xvzf "sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz"
