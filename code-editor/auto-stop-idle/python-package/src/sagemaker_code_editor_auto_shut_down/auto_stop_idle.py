@@ -3,6 +3,7 @@ import os
 import time
 import boto3
 import json
+import sys
 import argparse
 
 DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%fz"
@@ -70,6 +71,7 @@ if all(status == "idle" for status in activity_status):
     space_name = resource_metadata['SpaceName']
     app_name = resource_metadata['ResourceName']
     app_type = resource_metadata['AppType']
+    resource_arn = resource_metadata["ResourceArn"]
 
     # Use boto3 api call to delete the app. 
     sm_client = boto3.client('sagemaker',region_name=aws_region)
@@ -80,6 +82,6 @@ if all(status == "idle" for status in activity_status):
         SpaceName=space_name
     )
     log_message(f"[auto-stop-idle] - Deleting app {app_type}-{app_name}. Domain ID: {domain_id}. Space name: {space_name}. Resource ARN: {resource_arn}.")
-    print("SageMaker Studio Code Editor app terminated due to being idle for given duration")
+    log_message("[auto-stop-idle] - SageMaker Code Editor app terminated due to being idle for given duration.")
 else:
-    print("SageMaker Studio Code Editor app is active")
+    log_message("[auto-stop-idle] - SageMaker Code Editor app is not idle. Passing check.")

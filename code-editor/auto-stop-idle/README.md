@@ -1,6 +1,6 @@
 # SageMaker Code Editor Auto-Stop for Idle Instances
 
-The `autostop.py` Python script, coupled with the `on-start.sh` shell script, is designed to automatically shut down idle SageMaker Code Editor applications after a configurable time of inactivity. This solution is intended to help manage costs by ensuring that resources are not left running when not in use.
+The `auto_stop_idle.py` Python script, coupled with the `on-start.sh` shell script, is designed to automatically shut down idle SageMaker Code Editor applications after a configurable time of inactivity. This solution is intended to help manage costs by ensuring that resources are not left running when not in use.
 
 ## Installation for SageMaker Studio User Profiles
 
@@ -24,7 +24,7 @@ cd auto-stop-idle
 REGION=<aws_region>
 DOMAIN_ID=<domain_id>
 ACCOUNT_ID=<aws_account_id>
-LCC_NAME=code-editor-auto-shut-down
+LCC_NAME=code-editor-auto-stop-idle
 LCC_CONTENT=`openssl base64 -A -in on-start.sh`
 
 aws sagemaker create-studio-lifecycle-config \
@@ -61,15 +61,12 @@ The current implementation of idleness (as of `v0.3.0`) includes the following c
 1. There are no file changes made in the Code Editor application for a time period greater than `IDLE_TIME`. File changes include adding new files, deleting files, and/or updating files. 
 * Note: As of `v0.3.0`, the current implementation does not currently support terminal activity detection. 
 
-
-
 ### Configurations
 
 The `on-start.sh` script can be customized by modifying:
 
 * `IDLE_TIME` the time in seconds that the application is in "idle" state before being shut down. Default: `3600` seconds
 * `ASI_VERSION` the version of the Auto Shut Down solution. Please note that Code Editor starts at `v0.3.0`.
-
 
 ### Acknowledgement
 
