@@ -1,8 +1,17 @@
+from datetime import datetime
 import os
 import time
 import boto3
 import json
 import argparse
+
+DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%fz"
+
+def log_message(message):
+    """
+    Logs a message.
+    """
+    print(f"{datetime.now().strftime(DATE_FORMAT)} - {message}")
 
 def check_user_activity(workspace_dir, idle_threshold):
     # Get the timestamp of the most recently modified file or folder
@@ -17,6 +26,7 @@ def check_user_activity(workspace_dir, idle_threshold):
 
     # Calculate the time difference
     time_diff = current_time - os.stat(recent_item).st_mtime if recent_item else float('inf')
+    log_message(f"[auto-stop-idle] - Logging time difference between current time and time files were last changed {time_diff}.")
 
     # Check if the user is idle based on the idle time threshold
     if time_diff > idle_threshold:
@@ -69,6 +79,7 @@ if all(status == "idle" for status in activity_status):
         AppName=app_name,
         SpaceName=space_name
     )
+    log_message(f"[auto-stop-idle] - Deleting app {app_type}-{app_name}. Domain ID: {domain_id}. Space name: {space_name}. Resource ARN: {resource_arn}.")
     print("SageMaker Studio Code Editor app terminated due to being idle for given duration")
 else:
     print("SageMaker Studio Code Editor app is active")
