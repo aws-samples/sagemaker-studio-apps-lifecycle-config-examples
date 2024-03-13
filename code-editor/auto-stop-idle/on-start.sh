@@ -1,30 +1,25 @@
 #!/bin/bash
 set -ex
-
-# PARAMETERS
 ASI_VERSION=0.3.0
+
+# PARAMETERS 
 IDLE_TIME=3600  # in seconds, change this to desired idleness time before app shuts down
-LOG_FILE=/var/log/apps/app_container.log # Writing to app_container.log delivers logs to CW logs.
-SOLUTION_DIR=/var/tmp/auto-stop-idle
 
 AUTOSTOP_FILE_URL="https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz"
 
-{
 echo "Fetching the autostop script"
 echo "Downloading the autostop script package"
 
 # Download asset from corresponding repo release
-curl -LO $AUTOSTOP_FILE_URL
+curl -L -o sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz $AUTOSTOP_FILE_URL
 
 echo "Extracting the package"
 tar -xvzf "sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz"
 
-# Create solution directory
-sudo mkdir -p $SOLUTION_DIR
-
-# Moving the autostop.py to the SOLUTION_DIR
-echo "Moving the autostop.py to the solution directory"
-sudo mv sagemaker_code_editor_auto_shut_down/python-package/src/sagemaker_code_editor_auto_shut_down/autostop.py $SOLUTION_DIR/
+# Moving the autostop.py to the current directory
+# Adjust the path according to the structure inside the tar.gz file
+echo "Moving the autostop.py to the current directory"
+mv sagemaker_code_editor_auto_shut_down/python-package/src/sagemaker_code_editor_auto_shut_down/autostop.py ./
 
 echo "Detecting Python install with boto3 install"
 sudo apt-get update -y
@@ -49,6 +44,5 @@ echo "Touching file to reset idleness timer"
 touch /opt/amazon/sagemaker/sagemaker-code-editor-server-data/data/User/History/startup_timestamp
 
 echo "Starting the SageMaker autostop script in cron"
-echo "*/2 * * * * export AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=\$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI; $PYTHON_DIR $SOLUTION_DIR/autostop.py --time $IDLE_TIME --region \$AWS_DEFAULT_REGION > /home/sagemaker-user/autoshutdown.log" | crontab -
+echo "*/2 * * * * export AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI; $PYTHON_DIR $PWD/autostop.py --time $IDLE_TIME --region $AWS_DEFAULT_REGION > /home/sagemaker-user/autoshutdown.log" | crontab -
 
-}
