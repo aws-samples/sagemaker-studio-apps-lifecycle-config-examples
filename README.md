@@ -15,6 +15,8 @@ Lifecycle Configurations (LCCs) provide a mechanism to customize SageMaker Studi
 
 ### [SageMaker JupyterLab](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-jl.html)
 - [auto-stop-idle](jupyterlab/auto-stop-idle/) - Automatically shuts down JupyterLab applications that have been idle for a configurable time.
+- [ebs-backup-s3](jupyterlab/ebs-backup-s3) - Backs up content in a user space's EBS volume (user's home directory under `/home/sagemaker-user`) to an S3 bucket specified in a tag on the user profile. The files are stored under `s3://<bucket>/<user-profile-name>/<space-name>/<timestamp>`
+- [ebs-s3-restore](jupyterlab/ebs-s3-restore) - Used in conjunction with [ebs-backup-s3](jupyterlab/ebs-backup-s3), this script can be used to restore a user's files from their space to another, or in case of disaster recovery.
 
 ### [SageMaker Code Editor](https://docs.aws.amazon.com/sagemaker/latest/dg/code-editor.html)
 - [auto-stop-idle](code-editor/auto-stop-idle/) - Automatically shuts down Code Editor applications that have been idle for a configurable time.
