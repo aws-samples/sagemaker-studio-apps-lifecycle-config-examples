@@ -19,6 +19,10 @@ Lifecycle Configurations (LCCs) provide a mechanism to customize SageMaker Studi
 ### [SageMaker Code Editor](https://docs.aws.amazon.com/sagemaker/latest/dg/code-editor.html)
 - [auto-stop-idle](code-editor/auto-stop-idle/) - Automatically shuts down Code Editor applications that have been idle for a configurable time.
 
+### Common scripts
+These scripts will work with both SageMaker JupyterLab and SageMaker Code Editor apps. Note that if you want the script to be available across both apps, you will need to set them as an LCC script for both apps.
+- [ebs-s3-backup-restore](common-scripts/ebs-s3-backup-restore) - This script backs up content in a user space's EBS volume (user's home directory under `/home/sagemaker-user`) to an S3 bucket that's specified on the script, optionally on a schedule. If the user profile is tagged with a `SM_EBS_RESTORE_TIMESTAMP` tag, then the script will restore the backup files into the user's home directory, in addition to backups.
+
 ## Developing LLCs for SageMaker Studio applications
 For best practices, please check [DEVELOPMENT](DEVELOPMENT.md).
 
@@ -28,3 +32,4 @@ This project is licensed under the [MIT-0 License](LICENSE).
 ## Authors
 [Giuseppe A. Porcelli](https://www.linkedin.com/in/giuporcelli/) - Principal, ML Specialist Solutions Architect - Amazon SageMaker
 <br />Spencer Ng - Software Development Engineer - Amazon SageMaker
+<br />Durga Sury - Senior ML Specialist Solutions Architect - Amazon SageMaker
