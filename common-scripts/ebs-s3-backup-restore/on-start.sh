@@ -112,7 +112,7 @@ then
     cp $HOME/.backup/backup.sh /var/tmp/ebs_backup.sh
     sudo chown root:root /var/tmp/ebs_backup.sh
     sudo chmod +x /var/tmp/ebs_backup.sh
-    echo "* */$SYNC_INTERVAL_IN_HOURS * * * /bin/bash -ic '/var/tmp/ebs_backup.sh >> $LOG_FILE'" | sudo crontab -
+    echo "0 */$SYNC_INTERVAL_IN_HOURS * * * /bin/bash -ic '/var/tmp/ebs_backup.sh >> $LOG_FILE'" | sudo crontab -
 fi
 
 # Check if restore timestamp is set.
