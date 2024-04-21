@@ -32,8 +32,8 @@ PYTHON_SCRIPT_PATH=$SOLUTION_DIR/sagemaker_studio_jlab_auto_stop_idle/auto_stop_
 # Issue - https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/issues/12
 # SM Distribution image 1.6 is not starting cron service by default https://github.com/aws/sagemaker-distribution/issues/354
 
-# Check if cron needs to be installed
-status="$(dpkg-query -W --showformat='${db:Status-Status}' "cron" 2>&1)"
+# Check if cron needs to be installed  ## Handle scenario where script exiting("set -eux") due to non-zero return code by adding true command.
+status="$(dpkg-query -W --showformat='${db:Status-Status}' "cron" 2>&1)" || true 
 if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
 	# Fixing invoke-rc.d: policy-rc.d denied execution of restart.
 	sudo /bin/bash -c "echo '#!/bin/sh
@@ -44,7 +44,8 @@ if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
 	sudo apt install cron
 else
 	echo "Package cron is already installed."
-	sudo cron
+    # start/restart the service.
+	sudo service cron restart
 fi
 
 # Creating solution directory.
