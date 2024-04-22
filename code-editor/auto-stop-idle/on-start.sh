@@ -17,8 +17,25 @@ PYTHON_SCRIPT_PATH=$SOLUTION_DIR/sagemaker_code_editor_auto_shut_down/auto_stop_
 
 # Installing cron
 sudo apt-get update -y
-sudo sh -c 'printf "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d'
-sudo apt-get install -y cron
+
+# Issue - https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/issues/12
+# SM Distribution image 1.6 is not starting cron service by default https://github.com/aws/sagemaker-distribution/issues/354
+
+# Check if cron needs to be installed  ## Handle scenario where script exiting("set -eux") due to non-zero return code by adding true command.
+status="$(dpkg-query -W --showformat='${db:Status-Status}' "cron" 2>&1)" || true 
+if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
+	# Fixing invoke-rc.d: policy-rc.d denied execution of restart.
+	sudo /bin/bash -c "echo '#!/bin/sh
+	exit 0' > /usr/sbin/policy-rc.d"
+
+	# Installing cron.
+	echo "Installing cron..."
+	sudo apt install cron
+else
+	echo "Package cron is already installed."
+    # start/restart the service.
+	sudo service cron restart
+fi
 
 # Creating solution directory.
 sudo mkdir -p $SOLUTION_DIR
