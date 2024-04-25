@@ -52,6 +52,8 @@ aws sagemaker update-domain \
 ```
 ## Steps for installing in Internet-Free VPC environments:
 
+* Note : You domain execution role must have privileges to download the packages from your s3 bucket where the below packages are uploaded. 
+
 ### Downloading autostop idle Python package and upload to s3 bucket.
 ```
 ASI_VERSION=0.3.0
