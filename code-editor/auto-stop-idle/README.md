@@ -70,7 +70,7 @@ sudo $CONDA_HOME/pip install -U -t $SOLUTION_DIR /var/tmp/sagemaker_code_editor_
 
 ### If you are using sagemaker distribution image <=1.5, add below additional changes in script.
 
-### Download the cron package from https://packages.ubuntu.com/jammy/amd64/cron/download 
+### Download the cron package from [repository](https://packages.ubuntu.com/jammy/amd64/cron/download). 
 ```
 curl -LO http://mirrors.kernel.org/ubuntu/pool/main/c/cron/cron_3.0pl1-137ubuntu3_amd64.deb
 ```
