@@ -54,7 +54,7 @@ aws sagemaker update-domain \
 
 * Note : You domain execution role must have privileges to download the packages from your s3 bucket where the below packages are uploaded. 
 
-### Downloading autostop idle Python package and upload to s3 bucket.
+1. Downloading autostop idle Python package and upload to s3 bucket.
 ```
 ASI_VERSION=0.3.0
 PYTHON_PACKAGE=sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz
@@ -63,25 +63,27 @@ curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-e
 aws s3 cp sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz <YOUR-S3-BUCKET-PATH> 
 ```
 
-### Edit the on-start.sh file and replace "45 and 46" with:
+2. Edit the on-start.sh file and replace "45 and 46" with:
 
 ```
 aws s3 cp <YOUR-S3-BUCKET-PATH>/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz /var/tmp/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz
 sudo $CONDA_HOME/pip install -U -t $SOLUTION_DIR /var/tmp/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz
 ```
 
-### If you are using sagemaker distribution image <=1.5, add below additional changes in script.
+3. If you are using sagemaker distribution image <=1.5, add below additional changes in script.
 
-### Download the cron package from [repository](https://packages.ubuntu.com/jammy/amd64/cron/download). 
+- Download the cron package from [repository](https://packages.ubuntu.com/jammy/amd64/cron/download). 
 ```
 curl -LO http://mirrors.kernel.org/ubuntu/pool/main/c/cron/cron_3.0pl1-137ubuntu3_amd64.deb
 ```
-### Copy package to s3. 
+
+- Copy package to s3.
+  
 ```
 aws s3 cp cron_3.0pl1-137ubuntu3_amd64.deb <YOUR-S3-BUCKET-PATH>
 ```
 
-### Edit the on-start.sh file and replace line "33" with:
+- Edit the on-start.sh file and replace line "33" with:
 ```
 aws s3 cp  <YOUR-S3-BUCKET-PATH>/cron_3.0pl1-137ubuntu3_amd64.deb /tmp/cron_3.0pl1-137ubuntu3_amd64.deb
 sudo dpkg -i /tmp/cron_3.0pl1-137ubuntu3_amd64.deb
