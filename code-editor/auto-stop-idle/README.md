@@ -50,9 +50,9 @@ aws sagemaker update-domain \
     }'
 
 ```
-# Steps for installing in Internet-Free VPC environments:
+## Steps for installing in Internet-Free VPC environments:
 
-## Downloading autostop idle Python package and upload to s3 bucket.
+### Downloading autostop idle Python package and upload to s3 bucket.
 ```
 ASI_VERSION=0.3.0
 PYTHON_PACKAGE=sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz
@@ -61,14 +61,14 @@ curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-e
 aws s3 cp sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz <YOUR-S3-BUCKET-PATH> 
 ```
 
-## Edit the on-start.sh file and replace "45 and 46" with:
+### Edit the on-start.sh file and replace "45 and 46" with:
 
 ```
 aws s3 cp <YOUR-S3-BUCKET-PATH>/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz /var/tmp/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz
 sudo $CONDA_HOME/pip install -U -t $SOLUTION_DIR /var/tmp/sagemaker_code_editor_auto_shut_down-$ASI_VERSION.tar.gz
 ```
 
-## If you are using sagemaker distribution image <=1.5, add below additional changes in script.
+### If you are using sagemaker distribution image <=1.5, add below additional changes in script.
 
 ### Download the cron package from https://packages.ubuntu.com/jammy/amd64/cron/download 
 ```
