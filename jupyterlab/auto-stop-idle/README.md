@@ -98,7 +98,7 @@ Following are the instructions on how to modify the lifecycle configuration to s
     aws s3 cp $PYTHON_PACKAGE s3://<your_bucket_name>/<your_prefix>/
     ```
 
-3. Edit the `on-start.sh` file and replace line 45 with:
+3. Edit the `on-start.sh` file and replace line 56 with:
 
     ```
     sudo aws s3 cp s3://<your_bucket_name>/<your_prefix>/$PYTHON_PACKAGE /var/tmp/
