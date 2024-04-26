@@ -44,7 +44,7 @@ if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
 	sudo apt install cron
 else
 	echo "Package cron is already installed."
-    # start/restart the service.
+        # start/restart the service.
 	sudo service cron restart
 fi
 
