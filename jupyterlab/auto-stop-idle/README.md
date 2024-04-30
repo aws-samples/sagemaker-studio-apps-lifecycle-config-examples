@@ -6,8 +6,8 @@ The `on-start.sh` script, designed to run as a [SageMaker Studio lifecycle confi
 From a terminal appropriately configured with AWS CLI, run the following commands:
   
     ASI_VERSION=0.3.1
-    curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
-    tar -xvzf auto-stop-idle-$ASI_VERSION.tar.gz
+    curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/jupyterlab-lccs-$ASI_VERSION.tar.gz
+    tar -xvzf jupyterlab-lccs-$ASI_VERSION.tar.gz
 
     cd auto-stop-idle
 
@@ -84,8 +84,8 @@ Following are the instructions on how to modify the lifecycle configuration to s
   
     ```
     ASI_VERSION=0.3.1
-    curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
-    tar -xvzf auto-stop-idle-$ASI_VERSION.tar.gz
+    curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/jupyterlab-lccs-$ASI_VERSION.tar.gz
+    tar -xvzf jupyterlab-lccs-$ASI_VERSION.tar.gz
     ```
 
 2. Download and copy the auto stop idle Python package to a location of choice in Amazon S3. The Execution Role associated to the Studio domain or user profiles must have IAM policies that allow read access to such S3 location.
