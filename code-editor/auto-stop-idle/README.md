@@ -53,6 +53,7 @@ aws sagemaker update-domain \
 
 2. After successful domain update, navigate to Code Editor, and select the LCC when starting your Code Editor application.
 
+Note: Currently this script does not support installtion in Internet Free VPC enviornments. 
 
 ### Definition of idleness
 
