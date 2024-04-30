@@ -3,7 +3,7 @@
 
 #!/bin/bash
 set -eux
-ASI_VERSION=0.2.0
+ASI_VERSION=0.3.1
 
 # OVERVIEW
 # This script stops a SageMaker Studio JupyterLab app, once it's idle for more than X seconds, based on IDLE_TIME_IN_SECONDS configuration.

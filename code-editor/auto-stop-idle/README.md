@@ -14,7 +14,7 @@ The `auto_stop_idle.py` Python script, coupled with the `on-start.sh` shell scri
 From a terminal appropriately configured with AWS CLI, run the following commands (replace fields as needed):
 
 ```
-ASI_VERSION=0.3.0
+ASI_VERSION=0.3.1
 
 curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/code-editor-lccs-$ASI_VERSION.tar.gz
 tar -xvzf code-editor-lccs-$ASI_VERSION.tar.gz
@@ -57,10 +57,10 @@ Note: Currently this script does not support installtion in Internet Free VPC en
 
 ### Definition of idleness
 
-The current implementation of idleness (as of `v0.3.0`) includes the following criteria:
+The current implementation of idleness includes the following criteria:
 
 1. There are no file changes made in the Code Editor application for a time period greater than `IDLE_TIME`. File changes include adding new files, deleting files, and/or updating files. 
-* Note: As of `v0.3.0`, the current implementation does not currently support terminal activity detection. 
+* Note: The implementation does not currently support terminal activity detection. 
 
 ### Configurations
 

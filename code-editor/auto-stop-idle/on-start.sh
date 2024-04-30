@@ -3,7 +3,7 @@
 
 #!/bin/bash
 set -eux
-ASI_VERSION=0.3.0
+ASI_VERSION=0.3.1
 
 # User variables [update as needed]
 IDLE_TIME_IN_SECONDS=3600  # in seconds, change this to desired idleness time before app shuts down

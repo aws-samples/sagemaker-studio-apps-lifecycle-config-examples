@@ -5,7 +5,7 @@ The `on-start.sh` script, designed to run as a [SageMaker Studio lifecycle confi
 
 From a terminal appropriately configured with AWS CLI, run the following commands:
   
-    ASI_VERSION=0.2.0
+    ASI_VERSION=0.3.1
     curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
     tar -xvzf auto-stop-idle-$ASI_VERSION.tar.gz
 
@@ -83,7 +83,7 @@ Following are the instructions on how to modify the lifecycle configuration to s
 1. Download and extract the auto-stop-idle solution tarball:
   
     ```
-    ASI_VERSION=0.2.0
+    ASI_VERSION=0.3.1
     curl -LO https://github.com/aws-samples/sagemaker-studio-apps-lifecycle-config-examples/releases/download/v$ASI_VERSION/auto-stop-idle-$ASI_VERSION.tar.gz
     tar -xvzf auto-stop-idle-$ASI_VERSION.tar.gz
     ```
