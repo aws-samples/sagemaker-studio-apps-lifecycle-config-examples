@@ -1,8 +1,9 @@
+#!/usr/bin/env bash
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 
-#!/bin/bash
-set -eux
+set -euxo pipefail
 ASI_VERSION=0.3.1
 
 # User variables [update as needed]
