@@ -1,5 +1,5 @@
 > [!WARNING]
-> SageMaker AI Studio now supports shutting down idle JupyterLab spaces. Please use the built-in feature rather than relying on the below instructions, unless you have specific reasons for preferring a custom solution based on lifecycle scripts. Documentation: https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-idle-shutdown.html
+> SageMaker AI Studio now supports shutting down idle JupyterLab spaces. Please use the native feature rather than relying on the below instructions, unless you have specific reasons for preferring a custom solution based on lifecycle scripts. Documentation: https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-idle-shutdown.html
 
 
 # SageMaker Studio JupyterLab auto-stop idle notebooks
