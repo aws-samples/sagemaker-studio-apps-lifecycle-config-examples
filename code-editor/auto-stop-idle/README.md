@@ -1,3 +1,6 @@
+> [!WARNING]
+> SageMaker AI Studio now supports shutting down idle Code Editor spaces. Please use the built-in feature rather than relying on the below instructions, unless you have specific reasons for preferring a custom solution based on lifecycle scripts. Documentation: https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-idle-shutdown.html
+
 # SageMaker Code Editor Auto-Stop for Idle Instances
 
 The `auto_stop_idle.py` Python script, coupled with the `on-start.sh` shell script, is designed to automatically shut down idle SageMaker Code Editor applications after a configurable time of inactivity. This solution is intended to help manage costs by ensuring that resources are not left running when not in use.
